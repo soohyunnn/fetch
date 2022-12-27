@@ -29,18 +29,17 @@ import ErrorBoundary from "./ErrorBoundary";
 //비동기
 const currentUserNameQuery = selectorFamily({
   key: "CurrentUserName",
-  get:
-    (id) =>
-    async ({ id }) => {
-      const response = await axios.get(`/api/user-name?id=${id}`);
-      return response.data.name;
-    },
+  get: (id) => async () => {
+    const response = await axios.get(`/api/user-name?id=${id}`);
+    return response.data.name;
+  },
+  cachePolicy_UNSTABLE: { eviction: "most-recent" },
 });
 
-function CurrentUser() {
+function CurrentUser({ id }) {
   // const userName = useRecoilValue(currentUserNameQuery(1));
   // return <div>{userName}</div>;
-  const userName = useRecoilValueLoadable(currentUserNameQuery(2));
+  const userName = useRecoilValueLoadable(currentUserNameQuery(id));
 
   if (userName.state === "loading") {
     return <div>loading...</div>;
@@ -55,7 +54,7 @@ export default function CurrentUserInfo() {
   return (
     // <ErrorBoundary>
     //   <React.Suspense fallback={<div>Loading...</div>}>
-    <CurrentUser />
+    <CurrentUser id={1} />
     //   </React.Suspense>
     // </ErrorBoundary>
   );
