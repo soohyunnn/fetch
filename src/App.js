@@ -1,31 +1,18 @@
-import logo from "./logo.svg";
 import "./App.css";
-import TestMocking from "./components/TestMocking";
-import Counter from "./features/counters/Counter";
-import MobxExample from "./components/MobxExample";
-
-import { observableTodoStore } from "./app/ObservableTodoStore";
-import { RecoilRoot } from "recoil";
-import FontButton from "./components/Recoil/FontButton";
-import Text from "./components/Recoil/Text";
-import CharacterCounter from "./components/Recoil/CharacterCounter";
-import TodoList from "./components/Recoil/Todo/TodoList";
-import CurrentUserInfo from "./components/Recoil/CurrentUserInfo";
+import CharacterCounter from "./components/Zustand/CharacterCounter";
+import CurrentUserInfo from "./components/Zustand/CurrentUserInfo";
+import Scratches from "./components/Zustand/Scratches";
+import Text from "./components/Zustand/Text";
+import TodoList from "./components/Zustand/Todo/TodoList";
 
 function App() {
   return (
     <div className="App">
-      {/* <TodoList store={observableTodoStore} /> */}
-      {/* <MobxExample /> */}
-      {/* <TestMocking /> */}
-      {/* <Counter /> */}
-      <RecoilRoot>
-        {/* <FontButton /> */}
-        {/* <Text /> */}
-        {/* <CharacterCounter /> */}
-        <TodoList />
-        <CurrentUserInfo />
-      </RecoilRoot>
+      <Text />
+      <CharacterCounter />
+      <TodoList />
+      <CurrentUserInfo />
+      <Scratches />
     </div>
   );
 }

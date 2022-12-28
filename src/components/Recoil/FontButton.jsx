@@ -6,7 +6,7 @@ import { fontSizeState, fontSizeLabelState } from "./store";
 export default function FontButton() {
   const [fontSize, setFontSize] = useRecoilState(fontSizeState);
   const fontSizeLabel = useRecoilValue(fontSizeLabelState);
-  const [text, setText] = useRecoilState(textState);
+  const [text] = useRecoilState(textState);
 
   return (
     <>
