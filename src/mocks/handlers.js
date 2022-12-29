@@ -1,9 +1,75 @@
 import { rest } from "msw";
 
+const todos = [
+  {
+    id: `1`,
+    title: `pia 1`,
+  },
+  {
+    id: `2`,
+    title: `pia 2`,
+  },
+  {
+    id: `3`,
+    title: `pia 3`,
+  },
+  {
+    id: `4`,
+    title: `pia 4`,
+  },
+  {
+    id: `5`,
+    title: `pia 5`,
+  },
+];
+
 export const handlers = [
+  rest.get("http://localhost:3000/api/projects", async (req, res, ctx) => {
+    const pageIndex = req.url.searchParams.get("page");
+    return res(
+      ctx.json({
+        projects: [
+          {
+            id: `1 ${pageIndex}`,
+            name: `pia 1-(${pageIndex})`,
+          },
+          {
+            id: `2 ${pageIndex}`,
+            name: `pia 2-(${pageIndex})`,
+          },
+          {
+            id: `3 ${pageIndex}`,
+            name: `pia 3-(${pageIndex})`,
+          },
+          {
+            id: `4 ${pageIndex}`,
+            name: `pia 4-(${pageIndex})`,
+          },
+          {
+            id: `5 ${pageIndex}`,
+            name: `pia 5-(${pageIndex})`,
+          },
+        ],
+        hasMore: pageIndex < 4,
+        nextCursor: pageIndex < 4 ? parseInt(pageIndex) + 1 : undefined,
+      })
+    );
+    // return res(ctx.status(400));
+  }),
+  rest.post("http://localhost:3000/api/todo ", async (req, res, ctx) => {
+    const { todo } = req.body;
+    console.log(JSON.stringify(todo));
+    todos.push(todo);
+    return res(ctx.json(true));
+    // return res(ctx.status(400));
+  }),
+  rest.get("http://localhost:3000/api/todos", async (req, res, ctx) => {
+    console.log("111");
+    return res(ctx.json(todos));
+    // return res(ctx.status(400));
+  }),
   rest.get("http://localhost:3000/api/users", async (req, res, ctx) => {
     const pageIndex = req.url.searchParams.get("page");
-
     return res(
       ctx.json([
         {
